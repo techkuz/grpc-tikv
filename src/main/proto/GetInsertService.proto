@@ -1,0 +1,58 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+
+
+//package com.example.grpc;
+option java_package = "com.provectus.app";
+// Request payload
+
+
+
+
+message HelloUID {
+    // Each message attribute is strongly typed.
+    // You also must assign a "tag" number.
+    // Each tag number is unique within the message.
+    int64 uid = 1;
+
+    // This defines a strongly typed list of String
+    //    repeated string hobbies = 2;
+
+    // There are many more basics types, like Enum, Map
+    // See https://developers.google.com/protocol-buffers/docs/proto3
+    // for more information.
+}
+
+message HelloMessage {
+    // Each message attribute is strongly typed.
+    // You also must assign a "tag" number.
+    // Each tag number is unique within the message.
+    string name = 1;
+
+    // This defines a strongly typed list of String
+//    repeated string hobbies = 2;
+
+    // There are many more basics types, like Enum, Map
+    // See https://developers.google.com/protocol-buffers/docs/proto3
+    // for more information.
+}
+//
+message HelloResponse {
+    string result = 1;
+}
+
+//
+//message DummyResponse {
+//    string message = 1;
+//}
+
+
+// Defining a Service, a Service can have multiple RPC operations
+service GetInsertService {
+    // Define a RPC operation
+    rpc get(HelloUID) returns (HelloResponse);
+    rpc insert(HelloMessage) returns (google.protobuf.Empty) {};
+//    rpc insert(HelloMessage) returns (DummyResponse) {};
+
+}

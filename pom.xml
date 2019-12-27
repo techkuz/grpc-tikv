@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.pv.app</groupId>
+  <artifactId>tikv-connector</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>tikv-connector</name>
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.example.com</url>
+
+  <properties>
+      <maven.compiler.source>1.8</maven.compiler.source>
+      <maven.compiler.target>1.8</maven.compiler.target>
+      <grpc.version>1.26.0</grpc.version>
+      <os.plugin.version>1.6.2</os.plugin.version>
+      <protobuf.plugin.version>0.6.1</protobuf.plugin.version>
+      <protoc.version>3.5.1</protoc.version>
+  </properties>
+
+  <dependencies>
+
+
+    <dependency>
+      <groupId>io.grpc</groupId>
+      <artifactId>grpc-netty-shaded</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.grpc</groupId>
+      <artifactId>grpc-protobuf</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.grpc</groupId>
+      <artifactId>grpc-stub</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.tikv</groupId>
+      <artifactId>tikv-client-java</artifactId>
+      <version>2.0-SNAPSHOT</version>
+      <exclusions>
+        <exclusion>
+          <groupId>io.grpc</groupId>
+          <artifactId>grpc-netty</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>io.grpc</groupId>
+          <artifactId>grpc-protobuf</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>io.grpc</groupId>
+          <artifactId>grpc-stub</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+
+
+  </dependencies>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.grpc</groupId>
+        <artifactId>grpc-bom</artifactId>
+        <version>${grpc.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>javax.annotation</groupId>
+        <artifactId>javax.annotation-api</artifactId>
+        <version>1.3.2</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <extensions>
+      <extension>
+        <groupId>kr.motd.maven</groupId>
+        <artifactId>os-maven-plugin</artifactId>
+        <version>${os.plugin.version}</version>
+      </extension>
+    </extensions>
+
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>3.0.0-M2</version>
+          <executions>
+            <execution>
+              <id>enforce-java</id>
+              <goals>
+                <goal>enforce</goal>
+              </goals>
+              <configuration>
+                <rules>
+                  <requireJavaVersion>
+                    <version>[11,)</version>
+                  </requireJavaVersion>
+                </rules>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.xolstice.maven.plugins</groupId>
+          <artifactId>protobuf-maven-plugin</artifactId>
+          <version>${protobuf.plugin.version}</version>
+          <configuration>
+            <protocArtifact>com.google.protobuf:protoc:${protoc.version}:exe:${os.detected.classifier}</protocArtifact>
+            <pluginId>grpc-java</pluginId>
+            <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
+          </configuration>
+          <executions>
+            <execution>
+              <goals>
+                <goal>compile</goal>
+                <goal>compile-custom</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-shade-plugin</artifactId>
+          <version>3.2.0</version>
+          <executions>
+            <!-- Attach the shade goal into the package phase -->
+            <execution>
+              <phase>package</phase>
+              <goals>
+                <goal>shade</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+<!--         clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle-->
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+        <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.22.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+        </plugin>
+        <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
+        <plugin>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.7.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>3.0.0</version>
+        </plugin>
+      </plugins>
+  </build>
+</project>
