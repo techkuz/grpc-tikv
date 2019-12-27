@@ -2,9 +2,9 @@ Steps to reproduce:
 
 `mvn package`  
 
-`java -cp target/tikv-connector-1.0-SNAPSHOT.jar com.provectus.app.App`    
+`java -cp target/tikv-connector-1.0-SNAPSHOT.jar com.pv.app.App`    
 
- `java -cp target/tikv-connector-1.0-SNAPSHOT.jar com.provectus.app.Client`
+ `java -cp target/tikv-connector-1.0-SNAPSHOT.jar com.pv.app.Client`
  
  Setup:  
  Ubuntu 18  
