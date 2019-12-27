@@ -1,4 +1,4 @@
-package com.provectus.app;
+package com.pv.app;
 
 import com.google.common.base.Charsets;
 import io.grpc.stub.StreamObserver;
@@ -8,11 +8,11 @@ import org.tikv.raw.RawKVClient;
 import shade.com.google.protobuf.ByteString;
 
 public class GetInsertServiceImpl
-    extends com.provectus.app.GetInsertServiceGrpc.GetInsertServiceImplBase {
+    extends GetInsertServiceGrpc.GetInsertServiceImplBase {
   @Override
   public void get(
-      com.provectus.app.GetInsertServiceOuterClass.HelloUID request,
-      StreamObserver<com.provectus.app.GetInsertServiceOuterClass.HelloResponse> responseObserver) {
+      GetInsertServiceOuterClass.HelloUID request,
+      StreamObserver<GetInsertServiceOuterClass.HelloResponse> responseObserver) {
     System.out.println("get");
     System.out.println(request);
 
@@ -22,8 +22,8 @@ public class GetInsertServiceImpl
     ByteString res =
         dbClient.get(ByteString.copyFrom(String.valueOf(request.getUid()), Charsets.UTF_8));
 
-    com.provectus.app.GetInsertServiceOuterClass.HelloResponse response =
-        com.provectus.app.GetInsertServiceOuterClass.HelloResponse.newBuilder()
+    GetInsertServiceOuterClass.HelloResponse response =
+        GetInsertServiceOuterClass.HelloResponse.newBuilder()
             .setResult(res.toString())
             .build();
 
@@ -36,7 +36,7 @@ public class GetInsertServiceImpl
 
   @Override
   public void insert(
-      com.provectus.app.GetInsertServiceOuterClass.HelloMessage request,
+      GetInsertServiceOuterClass.HelloMessage request,
       io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
     // HelloRequest has toString auto-generated.
     System.out.println("insert");

@@ -1,4 +1,4 @@
-package com.provectus.app;
+package com.pv.app;
 
 import org.tikv.common.TiConfiguration;
 import org.tikv.common.TiSession;

@@ -1,4 +1,4 @@
-package com.provectus.app;
+package com.pv.app;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;

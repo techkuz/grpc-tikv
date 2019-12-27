@@ -1,0 +1,12 @@
+Steps to reproduce:
+
+`mvn package`  
+
+`java -cp target/tikv-connector-1.0-SNAPSHOT.jar com.provectus.app.App`    
+
+ `java -cp target/tikv-connector-1.0-SNAPSHOT.jar com.provectus.app.Client`
+ 
+ Setup:  
+ Ubuntu 18  
+ openjdk version "1.8.0_232"  
+ mvn 3.6.0

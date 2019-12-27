@@ -4,7 +4,7 @@ import "google/protobuf/empty.proto";
 
 
 //package com.example.grpc;
-option java_package = "com.provectus.app";
+option java_package = "com.pv.app";
 // Request payload
 
 

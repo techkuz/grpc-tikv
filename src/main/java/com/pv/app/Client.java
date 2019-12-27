@@ -1,4 +1,4 @@
-package com.provectus.app;
+package com.pv.app;
 //
 // import com.google.protobuf.Empty;
 // import io.grpc.ManagedChannel;
